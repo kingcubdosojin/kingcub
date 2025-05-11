@@ -1,0 +1,236 @@
+.header{
+    display: grid;
+    grid-template-columns: 80% 20%;
+    padding: 5px;
+}
+.contact-us-head{
+    padding: 80px;
+    background-color:#007BFF;
+    margin-left: -20px;
+    margin-right: -20px;
+    color: white;
+
+}
+.unset-warp{
+    white-space:unset !important;
+    overflow-x: unset !important ;
+    text-overflow: unset !important;
+}
+.set-warp{
+    white-space:nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+.form{
+    z-index: -1;
+    margin-left: 50px;
+    margin-top: -50px;
+    background-color: white;
+    border-style: groove;
+    box-shadow:  -1px -1px rgba(220, 220, 220, 0.5);
+    max-width: 900px;
+    margin-right: 50px;
+    padding: 5px;
+}
+.fields{
+    z-index: -1;
+}
+
+.chat{
+    display: grid;
+    grid-template-columns: 15% 65% 20%;
+    border-style: groove;
+    border-width: thin;
+    padding: 20px;
+    margin-bottom: 5px;
+    
+}
+.chats{
+    background-color: white;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 20px;
+    padding-bottom: 20%;
+}
+.chat-box-container{
+    position: fixed;
+    bottom: 100px;
+    right: 10px;
+    z-index: 50;
+}
+.chat-link {
+    color: black;
+
+    text-decoration: none;
+}
+
+.chat-link:visited {
+    color: black;
+
+    text-decoration: none;
+}
+
+
+.chat-link::before {
+    color: black;
+
+    text-decoration: none;
+}
+
+.chat-link:hover{
+    text-decoration: none;
+    color: black;
+}
+.full-container{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.cus_message{
+    background-color: #007BFF;
+    width: 70%;
+    margin-left: 30%;
+    color: white;
+    border-top-left-radius: 100px;
+
+
+    
+}
+
+.sup_message{
+    width: 70%;
+    background-color: white;
+    border-top-right-radius: 100px;
+
+ 
+
+}
+.message{
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    padding: 30px;
+    
+    margin-bottom: 10px;
+
+}
+.time_sent{
+    font-size: small;
+    padding-left: 80%;
+    white-space: nowrap !important;
+    text-overflow: unset !important;
+    overflow-x: unset !important;
+}
+
+
+ 
+.message-container-support{
+    display: grid;
+    grid-template-columns:5% auto;
+}
+
+.message-container-cus{
+    display: grid;
+    grid-template-columns: auto 10%;
+    
+}
+
+#message-form{
+    z-index: 100;
+    display: grid;
+    grid-template-columns: 92% 4% 4%;
+    grid-column-gap: 10px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+.m-image{
+    max-width: 800px;
+}
+
+@media screen and (max-width:900px) {
+    .full-container{
+        padding-left: 0;
+        padding-right: 10px;
+    }
+    #message-form{
+        z-index: 100;
+        display: grid;
+        grid-template-columns: 75% 12% 13%;
+        grid-column-gap: 10px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        padding-right: 10%;
+    }
+    .message{
+        padding: 5px;
+        
+        margin-bottom: 10px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    
+    }
+    .message-container-support{
+        display: grid;
+        grid-template-columns:18% auto;
+    }
+    .m-image{
+        max-width: 150px;
+    }
+    .form{
+        z-index: 50;
+        margin-left: 10px;
+        margin-top: -50px;
+        background-color: white;
+        border-style: groove;
+        box-shadow:  -1px -1px rgba(220, 220, 220, 0.5);
+        max-width: 900px;
+        margin-right: 10px;
+        padding: 5px;
+    }
+    .my{
+        display: block;
+    }
+    
+.chat{
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    border-style: groove;
+    border-width: thin;
+    padding: 15px;
+    margin-bottom: 5px;
+    
+}
+.chats{
+    background-color: white;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 20px;
+    padding-bottom: 20%;
+}
+.time_sent{
+    font-size: 10px;
+    padding-left: 60%;
+    white-space: nowrap !important;
+    text-overflow: unset !important;
+    overflow-x: unset !important;
+}
+
+.cus_message{
+    border-top-left-radius: 50px;
+
+}
+.sup_message{
+    width: 70%;
+    background-color: white;
+    border-top-right-radius: 50px;
+
+ 
+
+}
+
+
+
+
+    
+}

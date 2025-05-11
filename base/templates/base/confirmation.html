@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="center" style="height: 100vb;">
+    <div style="border-style: groove; padding: 5%;" >
+        <b style="color: red;">
+            {{invalid}}
+        </b>
+        <h1>
+            Confirm email address...
+        </h1>
+        <h2>
+            Just on more step, {{username}}.
+        </h2>
+        <p>
+            We have sent an email with your otp to {{email}}. Wrong email? <a href="{% url 'base:sign-up' %}">Go back to sign up and reconfirm.</a>
+        </p>
+
+        <form action="{% url 'base:create_new' %}" method="post">
+            {% csrf_token %}
+            <input type="email" value="{{email}}" name="email" readonly hidden> <br>
+            <label for="otp">
+                Enter OTP:
+            </label> <br>
+            <input id="otp" type="number" name="otp" placeholder="Enter your 6 digits otp" class="form-control" required>
+            <br>
+            <small>
+                By Continuing, I agree to the {{company_name.name}} Tariff/Terms and Conditions of Service and the {{company_name.name}} Technology
+                Agreement in effect at the time of shipping.
+            </small>
+            <div class="my_row2" style="padding-top: 20px;">
+<div class="my_col">
+<button type="submit" class="track_button btn btn-outline-primary">
+Continue
+</button>
+</div>
+<div class="my_col">
+    If you haven’t received an email, please check your spam folder. Sometimes, strict email settings can inadvertently redirect our messages there.
+</div>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

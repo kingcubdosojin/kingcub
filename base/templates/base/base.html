@@ -1,0 +1,246 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+    <title>{{company_name.name}} Corporation</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="{% url 'base:base' %}"><span id="logo">{{company_name.name|upper}}</span><svg
+                xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="currentColor" class="bi bi-water"
+                viewBox="0 0 16 16">
+                <path
+                    d="M.036 3.314a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 3.964a.5.5 0 0 1-.278-.65m0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 6.964a.5.5 0 0 1-.278-.65m0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0L.314 9.964a.5.5 0 0 1-.278-.65m0 3a.5.5 0 0 1 .65-.278l1.757.703a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.014-.406a2.5 2.5 0 0 1 1.857 0l1.015.406a1.5 1.5 0 0 0 1.114 0l1.757-.703a.5.5 0 1 1 .372.928l-1.758.703a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.014-.406a1.5 1.5 0 0 0-1.114 0l-1.015.406a2.5 2.5 0 0 1-1.857 0l-1.757-.703a.5.5 0 0 1-.278-.65" />
+            </svg>&nbsp;</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'base:new-shipment' %}">Shipping<span
+                            class="sr-only">(current)</span></a>
+                </li>
+
+
+
+
+
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'base:tracking' %}">Tracking</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'base:billing' %}">Produtcs & Services</a>
+                </li>
+
+
+                <li class="nav-item">
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'base:profile' %}" class="nav-link">
+                        My {{company_name.name}}
+                    </a>
+                    {% else %}
+                    <a href="{% url 'base:sign-up' %}" class="nav-link">
+                        Open an Account
+                        <small style="font-size: xx-small;">Get 75% off business deliveries</small>
+                    </a>
+                    {% endif %}
+
+
+                </li>
+            </ul>
+            {% if user.is_authenticated %}
+            <a class="btn btn-outline-secondary my-2 my-sm-0" href="{% url 'base:profile' %}">
+                {{request.user.username}}
+            </a>
+            {% else %}
+            <a class="btn btn-outline-secondary my-2 my-sm-0" href="{% url 'base:login' %}">
+                Log In
+            </a>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+            <a class="btn btn-outline-danger my-2 my-sm-0" href="{% url 'base:logout' %}">
+                Log Out
+            </a>
+            {% endif %}
+        </div>
+    </nav>
+
+
+    {% if request.user.is_authenticated %}
+
+        {% if request.user.is_superuser %}
+            <a href="{% url 'chat:chat' %}">
+                <div class="chat-box-container">
+                    <div class="chat-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16">
+                            <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9 9 0 0 0 8 15"/>
+                          </svg>
+                    </div>
+                    You're authenticated as a superuser. Please, note
+                </div>
+            </a>
+            You're authenticated as a superuser. Please, note
+
+
+
+        {% else %}
+            {% if request.user.chatuser.has_new_message %}
+     
+
+                <a href="{% url 'chat:chat' %}">
+                    <div class="chat-box-container">
+                        <div class="chat-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#007BFF" class="bi bi-chat new"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+
+                <style>
+                    .new{
+                        animation: new_message;
+                        animation-fill-mode: forwards;
+                        animation-iteration-count: infinite;
+                        animation-duration: 3s;
+                        animation-timing-function: ease-in-out;
+                            }
+                 
+                    @keyframes new_message {
+                        0% {width: 50px;
+                        height: 50px;}
+                        50% {width: 100px;
+                        height: 100px;}
+                        100% {width: 50px; height: 50px;}
+                        
+                    }
+                </style>
+
+            {% else %}
+
+                    <a href="{% url 'chat:chat' %}">
+                        <div class="chat-box-container">
+                            <div class="chat-box">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#007BFF" class="bi bi-chat"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+            {% endif %}
+        {% endif %}
+
+    {% else %}
+    <a href="{% url 'chat:chat' %}">
+        <div class="chat-box-container">
+            <div class="chat-box">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#007BFF" class="bi bi-chat"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
+                </svg>
+            </div>
+        </div>
+    </a>
+    {% endif %}
+
+
+    <div class="box">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div class="translate" id="google_translate_element"></div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+        }
+    </script>
+
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+    <div class="explore">
+        <h1 class="explore_head rm_scrollbar">
+            Uncover {{company_name.name}}
+        </h1>
+
+        <div class="explore_col" style="padding-left: 50px;">
+            <h4 class="explore_header rm_scrollbar">About Us</h4>
+            <ul>
+                <li>
+                    <a class="bottom-links" href="">
+                        About {{company_name.name}}
+                    </a>
+                </li>
+                <li>
+                    <a class="bottom-links" href="{% url 'base:new-shipment' %}">
+                        Shipping
+                    </a>
+                </li>
+
+                <li>
+                    <a class="bottom-links" href="{% url 'base:quotes' %}">
+                        Request a quote
+                    </a>
+                </li>
+
+                <li>
+                    <a class="bottom-links" href="{% url 'base:tracking' %}">
+                        Tracking
+                    </a>
+                </li>
+                <li>
+                    <a class="bottom-links" href="{% url 'base:billing' %}">
+                        Products and Services
+                    </a>
+                </li>
+
+                <li>
+                    {% if request.user.is_authenticated %}
+
+                    <a class="bottom-links" href="{% url 'base:profile' %}">
+                        My {{company_name.name}}
+                    </a>
+                    {% else %}
+                    <a class="bottom-links" href="{% url 'base:login' %}">Get more with {{company_name.name}}</a>
+                    {% endif %}
+
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+</body>
+
+
+
+</html>

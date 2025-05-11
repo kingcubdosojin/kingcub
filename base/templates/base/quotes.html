@@ -1,0 +1,90 @@
+{% extends 'base/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    {% if msg %}
+    <div class="alert alert-success" role="alert">
+        <div class="msg">
+        {{msg}}
+        </div>
+    </div>
+      {% endif %}
+    <div class="quotes-form">
+        <div class="discounts">
+            Do you have an account? <a href="{% url 'base:login' %}">Log in for discounts</a>
+        </div>
+        <br>
+        <b>
+            *Required Fields
+        </b>
+        <br> <br>
+        <form action="{% url 'base:quotes' %}" method="post">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="col">
+                <label for="From">From*</label>
+                <select name="from" class="form-control" id="From">
+                  {% for c in countries %}
+                  <option value="{{c.name}}">{{c.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            
+              
+              <div class="col">
+                <label for="To">To*</label>
+                <select name="to" class="form-control" id="To">
+                  {% for c in countries %}
+                  <option value="{{c.name}}">{{c.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            
+            </div>
+            <br>
+            <b>
+                Parcel Information
+            </b>
+            <div class="form-row">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Weight (Ibs)*" name="weight" required>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Length (inches)*" name="length" required>
+                </div> 
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Width (inches)*" name="width" required>
+                  </div> 
+                  <div class="col">
+                    <input type="text" class="form-control" placeholder="Height (inches)*" name="height" required>
+                  </div> 
+                <!--Weights-->
+              
+              </div>
+              <br>
+
+              <div class="form-group">
+                <label for="exampleFormControlInput1"><b>Email address</b></label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter your email here." name="email" required>
+                <small>
+                    "Your information is secure with us. We use it solely to contact you with your quote."
+                </small>
+            </div>
+            <button class="btn btn-warning">
+                Get Quote<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                    <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                  </svg>
+            </button>
+          </form>
+
+    </div>
+    {% endblock %}
+</body>
+</html>

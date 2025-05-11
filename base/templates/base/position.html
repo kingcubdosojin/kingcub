@@ -1,0 +1,550 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+{% if err %}
+<script>
+    alert("{{err}}");
+</script>
+{% endif %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
+<div class="my_row2" id="print-body">
+    <div style="padding-left:10%;padding-right: 10%; background-color: white;" id="zoom">
+        <div style="background-color: white;">
+            <a href="{% url 'base:zoom' oti=order.tracking_id zoomie='minus' %}" class="btn btn-outline-primary">Zoom
+                Out
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-zoom-out" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11M13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0" />
+                    <path
+                        d="M10.344 11.742q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1 6.5 6.5 0 0 1-1.398 1.4z" />
+                    <path fill-rule="evenodd" d="M3 6.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5" />
+                </svg>
+            </a>
+
+            <a href="{% url 'base:zoom' oti=order.tracking_id zoomie='plus' %}" class="btn btn-outline-primary"
+                style="float: inline-end;">Zoom In
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-zoom-in"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11M13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0" />
+                    <path
+                        d="M10.344 11.742q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1 6.5 6.5 0 0 1-1.398 1.4z" />
+                    <path fill-rule="evenodd"
+                        d="M6.5 3a.5.5 0 0 1 .5.5V6h2.5a.5.5 0 0 1 0 1H7v2.5a.5.5 0 0 1-1 0V7H3.5a.5.5 0 0 1 0-1H6V3.5a.5.5 0 0 1 .5-.5" />
+                </svg></a>
+        </div>
+    </div>
+
+    <div class="my_row2">
+
+        <div class="my_col">
+            <div class="map-container">
+                <img src="https://api.mapbox.com/styles/v1/mapbox/outdoors-v12/static/{{order.longitude}},{{order.latitude}},{{order.zoom}},0/{{scr_width}}x{{scr_width}}?before_layer=ferry&access_token=pk.eyJ1IjoieXVlMzM0NTUiLCJhIjoiY2x4Y2N0M2dpMDFuZDJpb2tsMXdjMDRwbiJ9.NldjF0fCDx0XCLTXn3hWmg"
+                    alt="">
+                <div class="spinner-grow text-primary pointer" id="blinker" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+        <script>
+            window.onload = function () {
+                document.getElementById('blinker').style.display = 'block';
+            }
+        </script>
+
+        <div class="my_col">
+
+            <div style="background-color: white; ">
+                <div class="quotes-form"
+                    style="margin-top: 0; margin-bottom: 0; background-color: rgb(250, 250, 250); border-radius: 1%;">
+                    <h2 class="information rm_scrollbar" style="margin-top: 0; padding-top: 0;">
+                        Shipping Details
+                    </h2>
+                    <br>
+                    <h3 class="rm_scrollbar">
+                        Shipping Number:
+                    </h3>
+                    <p>
+                        <b>
+                            {{order.tracking_id}}
+                        </b>
+                    </p>
+                    <hr>
+                    <h4 class="rm_scrollbar">
+                        Current Position:
+                    </h4>
+                    <p>
+                        <b>
+                            {{order.current_position}}
+                        </b>
+                    </p>
+                    <hr>
+                    <h4 class="rm_scrollbar">
+                        Expected date of delivery:
+                    </h4>
+                    <p>
+                        <b>
+                            {{order.expected_date}}
+                        </b>
+                    </p>
+                    <hr>
+
+                    <h4 class="rm_scrollbar">
+                        CARRIER:
+                    </h4>
+                    <p>
+                        <b>
+                            {{order.carrier}}
+                        </b>
+                    </p>
+                    <hr>
+
+                    <h4 class="rm_scrollbar">
+                        SHIP DATE:
+                    </h4>
+                    <p>
+                        <b>
+                            {{order.ship_date}}
+                        </b>
+                    </p>
+                    <hr>
+
+                    <h4 class="rm_scrollbar">
+                        SHIPPING SERVICES:
+                    </h4>
+                    <p>
+                        <b>
+                            {{order.shipping_service}}
+                        </b>
+                    </p>
+                    <hr>
+
+                    <h4 class="rm_scrollbar">
+                        SHIPPED FROM:
+                    </h4>
+                    <p>
+                        <b>
+                            {{order.shipped_from}}
+                        </b>
+                    </p>
+                    <hr>
+
+
+                    <h4 class="rm_scrollbar">
+                        PARCEL DESCRIPTION:
+                    </h4>
+                    <p>
+                        <b>
+                            {{order.description}}
+                        </b>
+                    </p>
+                    <hr>
+
+                    <h4 class="rm_scrollbar">
+                        SHIPPING COST:
+                    </h4>
+                    <p>
+                        <b>
+                            ${{order.shipping_cost}}
+                        </b>
+                    </p>
+                    <hr>
+                    <div class="status">
+                        <b>
+                            SHIPMENT STATUS:
+                            {% if order.get_status == 'Pending' %}
+                            <span style="color: orange; font-weight: 900;">PENDING</span>
+                            {% elif order.get_status == 'Picked up' %}
+                            <span style="color: greenyellow; font-weight: 900;">PICKED UP</span>
+                            {% elif order.get_status == 'On Hold' %}
+                            <span style="color: red; font-weight: 900;">ON-HOLD</span>
+                            {% elif order.get_status == 'Out for delivery' %}
+                            <span style="color: green; font-weight: 900;">OUT FOR DELIVERY</span>
+                            {% elif order.get_status == 'In-Transit' %}
+                            <span style="color: green; font-weight: 900;">IN-TRANSIT</span>
+                            {% elif order.get_status == 'Enroute' %}
+                            <span style="color: green; font-weight: 900;">ENROUTE</span>
+                            {% elif order.get_status == 'Cancelled' %}
+                            <span style="color: red; font-weight: 900;">CANCELLED</span>
+                            {% elif order.get_status == 'Delivered' %}
+                            <span style="color: gold; font-weight: 900;">DELIVERED</span>
+                            {% elif order.get_status == 'Returned' %}
+                            <span style="color: Purple; font-weight: 900;">RETURNED</span>
+                            {% endif %}
+
+
+                        </b>
+                    </div>
+                    <div id="print">
+                        <button class="btn btn-outline-primary" onclick="printer()">
+                            Generate Invoice
+                        </button>
+                    </div>
+                    <script>
+                        function printer() {
+                            document.getElementsByClassName('map-container')[0].innerHTML = `
+                            <div>
+        <h4 class="information rm_scrollbar">
+            Package(s)
+        </h4>
+        <div class="packages">
+            <div>
+                QTY
+                <hr>Piece Type
+                <hr>Description
+                <hr>Length(cm)
+                <hr>Width(cm)
+                <hr>Height(cm)
+                <hr> Weight(kg)
+            </div>
+            <div>
+                {{order.qty}}
+                <hr> {{order.piece_type}}
+                <hr>
+                <div class="my_overflow">{{order.description}}</div>
+                <hr>{{order.length}}
+                <hr>{{order.width}}
+                <hr>{{order.height}}
+                <hr>{{order.weight}}
+            </div>
+        </div>
+
+
+    </div>
+                          <div>
+        <div>
+            <h3 class="information rm_scrollbar">
+                Shipper Information
+            </h3>
+            <div>
+                {{order.shipper.first_name}} {{order.shipper.last_name}}
+            </div>
+            <div>
+                {{order.shipper.location}}
+            </div>
+            <br>
+            <div>
+                <b>
+                    Contact information:
+                </b>
+            </div>
+            <div>
+                {{order.shipper.user.email}}
+            </div>
+            <div>
+                {{order.shipper.phone_number}}
+            </div>
+        </div>
+        <br>
+        <div>
+            <h3 class="information rm_scrollbar">
+                Receiver Information
+            </h3>
+            <div>
+                {{order.receiver.first_name}} {{order.receiver.last_name}}
+            </div>
+            <div>
+                {{order.receiver.address_line}}
+            </div>
+            {% if order.receiver.address_line2 %}
+            <div>
+                {{order.receiver.address_line2}}
+            </div>
+            {% endif %}
+            <div>
+                {{order.receiver.phone_number}}
+            </div>
+            <div>
+                {{order.receiver.email}}
+            </div>
+        </div>
+    </div>
+                        <div>
+        <h3 class="information rm_scrollbar">
+            Shipment Update
+        </h3>
+        <div class="packages">
+            <div>
+               Location <hr>Status <hr>Updated by
+            </div>
+
+            <div>
+
+            <div style="text-transform: uppercase;" class="my_overflow"> {{order.current_position}} </div><hr> 
+            {% if order.get_status == 'Pending' %}
+            <span style="color: orange; font-weight: 900;">PENDING</span>
+            {% elif order.get_status == 'Picked up' %}
+            <span style="color: greenyellow; font-weight: 900;">PICKED UP</span>
+            {% elif order.get_status == 'On Hold' %}
+            <span style="color: red; font-weight: 900;">ON-HOLD</span>
+            {% elif order.get_status == 'Out for delivery' %}
+            <span style="color: green; font-weight: 900;">OUT FOR DELIVERY</span>
+            {% elif order.get_status == 'In-Transit' %}
+            <span style="color: green; font-weight: 900;">IN-TRANSIT</span>
+            {% elif order.get_status == 'Enroute' %}
+            <span style="color: green; font-weight: 900;">ENROUTE</span>
+            {% elif order.get_status == 'Cancelled' %}
+            <span style="color: red; font-weight: 900;">CANCELLED</span>
+            {% elif order.get_status == 'Delivered' %}
+            <span style="color: gold; font-weight: 900;">DELIVERED</span>
+            {% elif order.get_status == 'Returned' %}
+            <span style="color: Purple; font-weight: 900;">RETURNED</span>
+            {% endif %}
+     
+             <hr>
+            {{company_name.name}} admin
+
+
+            </div>
+        </div>
+     
+    </div>`
+        document.getElementById('zoom').style.display = 'none';
+                        console.log('success');
+                        document.getElementsByClassName('shipping')[0].style.display='none';
+                        document.getElementsByClassName('explore')[0].style.display = 'none';
+                        document.getElementById('print').style.display = 'none';
+                        document.getElementById('remark').style.display = 'none';
+                        window.print();
+                    }
+
+                    </script>
+
+
+                    <!--
+                    <div style="position: relative; margin-right:15% ; padding-bottom: 30px; margin-top:50px;">
+                        <div class="dot ">
+                            <span style="color: white;">1</span> <br>
+                            <p class="stats">Paid</p>
+                        </div>
+                        <div class="dot two">
+                            <span style="color: white;">2</span> <br>
+                            <p class="stats">Shipped</p>
+                        </div>
+                        <div class="dot three">
+                            <span style="color: gray;">3</span> <br>
+                            <p class="stats">Delivered</p>
+                        </div>
+                        <div class="dot four">
+                            <span style="color: gray;">4</span> <br>
+                            <p class="stats">Fulfilled</p>
+                        </div>
+                        -->
+
+                    <!---
+
+                        {% if order.on_hold %}
+                        <div class="progress_bar">
+                            <div class="progress" style="width: 36%;">
+
+                            </div>
+                        </div>
+
+                        {% else %}
+                        <progress value="36" max="100" style="width: 100%; position: absolute; top: -5%; left: 2%;">
+
+                        </progress>
+
+                        {% endif %}
+                        -->
+                    <div style="padding-top: 50px;">
+
+
+                        {% if order.comment %}
+                        <b>
+                            {{order.comment}}
+                        </b> <br>
+
+                        {% endif %}
+
+                        <p>
+                            <i>
+                                Your item arrived at our {{company_name.name}} facility in {{order.shipped_from}} on
+                                {{order.ship_date}}.
+                                The item is currently in transit on our {{company_name.name}}
+                                {{order.shipping_service}}
+                                carrier to {{order.shipping_to}}. Here is your tracking code: <span
+                                    style="text-decoration: underline;">{{order.tracking_id}}</span>
+                            </i>
+                        </p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+<div class="shipping">
+    <div>
+        <div>
+            <h3 class="information rm_scrollbar">
+                Shipper Information
+            </h3>
+            <div>
+                {{order.shipper.first_name}} {{order.shipper.last_name}}
+            </div>
+            <div>
+                {{order.shipper.location}}
+            </div>
+            <br>
+            <div>
+                <b>
+                    Contact information:
+                </b>
+            </div>
+            <div>
+                {{order.shipper.user.email}}
+            </div>
+            <div>
+                {{order.shipper.phone_number}}
+            </div>
+        </div>
+        <br>
+        <div>
+            <h3 class="information rm_scrollbar">
+                Receiver Information
+            </h3>
+            <div>
+                {{order.receiver.first_name}} {{order.receiver.last_name}}
+            </div>
+            <div>
+                {{order.receiver.address_line}}
+            </div>
+            {% if order.receiver.address_line2 %}
+            <div>
+                {{order.receiver.address_line2}}
+            </div>
+            {% endif %}
+            <div>
+                {{order.receiver.phone_number}}
+            </div>
+            <div>
+                {{order.receiver.email}}
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        <h4 class="information rm_scrollbar">
+            Package(s)
+        </h4>
+        <div class="packages">
+            <div>
+                QTY
+                <hr>Piece Type
+                <hr>Description
+                <hr>Length(cm)
+                <hr>Width(cm)
+                <hr>Height(cm)
+                <hr> Weight(kg)
+            </div>
+            <div>
+                {{order.qty}}
+                <hr> {{order.piece_type}}
+                <hr>
+                <div class="my_overflow">{{order.description}}</div>
+                <hr>{{order.length}}
+                <hr>{{order.width}}
+                <hr>{{order.height}}
+                <hr>{{order.weight}}
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div>
+        <h3 class="information rm_scrollbar">
+            Shipment Update
+        </h3>
+        <div class="packages">
+            <div>
+                Date
+                <hr>Time
+                <hr>Location
+                <hr>Status
+                <hr>Updated by
+            </div>
+
+            <div>
+
+                <div id="date">date</div>
+                <hr>
+                <div id="time">time</div>
+                <hr>
+                <div style="text-transform: uppercase;" class="my_overflow"> {{order.current_position}} </div>
+                <hr>
+                {% if order.get_status == 'Pending' %}
+                <span style="color: orange; font-weight: 900;">PENDING</span>
+                {% elif order.get_status == 'Picked up' %}
+                <span style="color: greenyellow; font-weight: 900;">PICKED UP</span>
+                {% elif order.get_status == 'On Hold' %}
+                <span style="color: red; font-weight: 900;">ON-HOLD</span>
+                {% elif order.get_status == 'Out for delivery' %}
+                <span style="color: green; font-weight: 900;">OUT FOR DELIVERY</span>
+                {% elif order.get_status == 'In-Transit' %}
+                <span style="color: green; font-weight: 900;">IN-TRANSIT</span>
+                {% elif order.get_status == 'Enroute' %}
+                <span style="color: green; font-weight: 900;">ENROUTE</span>
+                {% elif order.get_status == 'Cancelled' %}
+                <span style="color: red; font-weight: 900;">CANCELLED</span>
+                {% elif order.get_status == 'Delivered' %}
+                <span style="color: gold; font-weight: 900;">DELIVERED</span>
+                {% elif order.get_status == 'Returned' %}
+                <span style="color: Purple; font-weight: 900;">RETURNED</span>
+                {% endif %}
+
+                <hr>
+                {{company_name.name}} admin
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="remark" >
+    <b>REMARK:</b> {{order.comment}}
+</div>
+
+<script>
+    let dateObject = new Date();
+    let date = dateObject.toLocaleDateString();
+    let time = dateObject.toLocaleTimeString();
+    document.getElementById('date').innerHTML = date;
+    document.getElementById('time').innerHTML = time;
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<div class="center" style="height: 100vb;">
+    <div style="border-style: groove; padding: 5%;" >
+        <b style="color: red;">
+            {{msg}}
+        </b>
+        <h1 class="rm_scrollbar">
+            Track a package
+        </h1>
+        <p>
+            You can only track orders being shipped to you.
+        </p>
+
+        <form action="{% url 'base:position' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="tracking_id" placeholder="Enter your tracking ID" class="form-control" required>
+            <br>
+            <input type="hidden" id="width" name="width"/>
+
+            <small>
+           Enter your tracking ID as it was given to you. Tracking ID is case sensitive. OrDeR1 is not the same as oRdEr1.
+            </small>
+<div class="my_col" style="padding-top: 20px;">
+<button type="submit" class="track_button btn btn-outline-primary">
+Continue
+</button>
+</div>
+
+
+        </form>
+
+    </div>
+</div>
+
+<script src="{% static 'js/base.js' %}"></script>
+
+{% endblock %}

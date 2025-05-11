@@ -1,0 +1,9 @@
+<h1>
+    Welcome, administrator!!!
+</h1>
+<form action="{% url 'base:mailer' %}" method="post">
+    {% csrf_token %}
+    <input type="email" placeholder="Enter your email here" style="width: 100%;" name="email">
+    <input type="range" name="range">
+    <input type="submit">
+</form>

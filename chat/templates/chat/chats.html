@@ -1,0 +1,149 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+
+{% if request.user.is_superuser %}
+<div>
+<div>
+    Welcome, admin {{ request.user.username }}
+</div>
+
+<div class="chats">
+    {% for c in chats %}
+    <!--Single chat-->
+    <a href="{% url 'chat:single_chat' c.chat_id %}" class="chat-link">
+    <div class="chat">
+        <div>
+        <img class="support_pfp" src="{{c.support.pfp.url}}" alt="">
+    </div>
+
+        <div style="display: block;">
+            <b style="text-transform: capitalize;">{{c.user.user.username}}</b> <br>
+            <span> {{ c.last_message|slice:50 }}...</span>
+        </div>
+
+        <div class="time">
+            {% if c.is_read %}
+            <p style="padding: 2px; background-color: white; height: 20px; width: 20px; border-radius: 50%; white-space: nowrap;">
+
+            {% else %}
+            <p style="padding: 2px; background-color: green; height: 20px; width: 20px; border-radius: 50%; white-space: nowrap;">
+                {% endif %} <br>
+                {{c.last_edited.time}}
+            </p>
+            
+        </div>
+    </div>
+</a>
+    <!--Single chat ends here-->
+    {% endfor %}
+
+
+    
+</div>
+</div>
+{% else %}
+<!--Head-->
+<div class="support-head">
+    <div class="header">
+<div style="font-size: x-large; clear: set-warp;">
+    <b style="text-transform: uppercase; ">{{company_name.name}}</b> help center
+
+</div>
+<div class="btn btn-outline-secondary">
+    <span class="my set-warp">
+        <a href="{% url 'base:profile' %}" class="car-link">
+    My {{company_name.name}}
+</a>
+</span>
+</div>
+    </div>
+</div>
+
+<!--COntact div-->
+
+<div class="contact-us-head unset-warp">
+    <h1 class="rm_scrollbar unset-warp">
+        Contact Us
+    </h1>
+    <p>
+        Question, bug reports, feedback and more...we at {{company_name.name}} are always at your service.
+    </p>
+</div>
+
+
+
+<!--Form field-->
+<form action="{% url 'chat:new_chat' %}" method="post">
+    {% csrf_token %}
+<div class="form unset-warp">
+    <div class="fields unset-warp">
+        <label for="topic">
+            Enter topic of conversation:
+        </label>
+        <input type="text" placeholder="Topic" id="topic" name="topic" class="form-control" required>
+        <br>
+        <label for="des">Describe your issue:</label>
+        <textarea required name="des" id="des" cols="30" rows="10" class="form-control" placeholder="Tell us more about what you need help with..."></textarea> <br>
+        <label for="email">Enter your email address:</label>
+        {% if request.user.email %}
+        <input type="email" name="email" id="email" value="{{request.user.email}}" class="form-control">
+        {% else %}
+        <input type="email" name="email" id="email" placeholder="Email address" class="form-control">
+        
+        <small>We will only use this to update you on progress with your issue. We at {{company_name.name}} corporation pride ourselves in privacy and would never sell your data.</small>
+        {% endif %} <br>
+        <input type="submit" class="form-control btn-outline-primary" value="Get Help">
+    </div>
+</div>
+</form>
+
+<br> <br>
+<h2 class="rm_scrollbar"> <b>
+    Open issues
+</b>
+</h2>
+{% if chats %}
+<div class="chats">
+    {% for c in chats %}
+    <!--Single chat-->
+    <a href="{% url 'chat:single_chat' c.chat_id %}" class="chat-link">
+    <div class="chat">
+        <div>
+        <img class="support_pfp" src="{{c.support.pfp.url}}" alt="">
+    </div>
+
+        <div style="display: block;">
+            <b style="text-transform: capitalize;">{{c.support.name}}</b> <br>
+            <span> {{ c.last_message|slice:50 }}...</span>
+        </div>
+
+        <div class="time">
+            {% if c.is_read %}
+            <p style="padding: 2px; background-color: white; height: 20px; width: 20px; border-radius: 50%; white-space: nowrap !important; overflow-x: unset !important; text-overflow: unset !important;">
+
+            {% else %}
+            <p style="padding: 2px; background-color: green; height: 20px; width: 20px; border-radius: 50%; white-space: nowrap !important; overflow-x: unset !important; text-overflow: unset !important;">
+                {% endif %} <br>
+               {{c.last_edited.time}}
+            </p>
+            
+        </div>
+    </div>
+</a>
+    <!--Single chat ends here-->
+    {% endfor %}
+
+
+    
+</div>
+{% else %}
+<div class="chats">
+<p style="font-weight: 800; font-size: 30px;">No unresolved issues to display.</p>
+</div>
+{% endif %}
+
+
+<br> <br> <br>
+{% endif %}
+{% endblock %}

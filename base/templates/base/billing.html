@@ -1,0 +1,90 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<h1 class="rm_scrollbar">
+    Manage Billing and Invoices
+</h1>
+<p style="font-size: large;">
+    Whether you need to pay a shipping bill or manage multiple invoices, we have convenient and secure tools that make
+    it easy.
+</p>
+<div class="center padded-top">
+    <h2 class="rm_scrollbar">
+        What do you <span class="underline">want</span> to do today?
+    </h2>
+</div>
+
+
+<div class="padded-top">
+
+    <div class="my_row2">
+
+
+        <div class="three_col">
+            <div class="inner">
+                <img src="{% static 'images/prepay.png' %}" alt="">
+
+                <h3 class="rm_scrollbar">
+                    Pre-Pay Import or COD Charges
+                </h3>
+
+                <p>
+                    If you need to pay charges for a package being delivered to you, you can view and pay using the
+                    Tracking
+                    number.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="three_col">
+
+            <div class="inner">
+                <img src="{% static 'images/invoice.png' %}" alt="">
+
+                <h3 class="rm_scrollbar">
+                    Pay an invoice
+                </h3>
+
+                <p>
+                    Our Pay Now app is the easiest and safest way to quickly pay a bill you received.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="three_col">
+
+            <div class="inner">
+
+                <img src="{% static 'images/manage.png' %}" alt="">
+
+                <h3 class="rm_scrollbar">
+                    Manage Your Bills
+                </h3>
+
+                <p>
+                    The {{company_name.name}} Billing Center lets you review, manage, pay or even dispute your bills.
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<div>
+    
+</div>
+
+
+
+{% endblock %}

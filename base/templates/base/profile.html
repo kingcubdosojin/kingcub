@@ -1,0 +1,176 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<h2 style="display: flex; justify-content: center; align-items: center;" class="rm_scrollbar">
+    Account Overview
+</h2>
+
+<div class="profile_page" >
+    <div class="card" style="padding: 30px;">
+        <div class="card-body">
+            <h3 class="rm_scrollbar">Welcome {{ request.user.first_name }},</h3>
+            <hr>
+            <div style="display: flex; justify-content: center;">
+
+                <img {% if request.user.shipper.pfp %} src="{{request.user.shipper.pfp.url}}" {% else %}
+                    src="{% static 'images/blank.png' %}" {% endif %} alt="" class="support_pfp"> <br>
+
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <button
+                    onclick="var photo = document.getElementById('photo'); photo.style.display = (photo.style.display === 'none') ? 'block' : 'none';">
+                    Change profile photo
+                </button>
+
+
+            </div>
+            <div id="photo" style="display: none; ">
+                <div>
+                    <form action="{% url 'base:pfp' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="file" class="form-control" name="photo" required>
+                        <div style="display: flex;">
+                            <button type="submit" class="btn btn-primary">Change</button>
+
+                    </form>
+                    <a href="{% url 'base:pfp' %}" class="btn btn-warning">Delete</a>
+
+                    <button type="submit" class="btn btn-danger"
+                        onclick="var photo = document.getElementById('photo'); photo.style.display = (photo.style.display === 'block') ? 'none' : 'block';">Close</button>
+
+                </div>
+            </div>
+        </div>
+        <hr>
+        <p style="font-family:Helvetica, Arial, sans-serif;">
+            <b>
+            Account
+            Details
+        </b>
+    </p>
+        <hr>
+        <p style="font-family: Arial, Helvetica, sans-serif;">
+            <b>
+            {{ request.user.first_name }} {{ request.user.last_name }}
+        </b><br><br>
+            Email: <i> {{request.user.email}} </i><br>
+           <i>0 shipment(s) delivered.</i><br>
+           <i>0 shipment(s) in transit.</i>
+        </p>
+    </div>
+</div>
+
+<div class="album py-5 bg-body-tertiary" style="background-color: white; padding: 15px;">
+    <h3 class="rm_scrollbar">
+        International Freight(s)
+    </h3>
+    <hr>
+    <div class="container">
+
+
+        {% if orders %}
+        <div class="orders">
+
+        {% for o in orders %}
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+
+                <b>
+                    Tracking ID:
+                </b>
+                <p class="card-text">
+                    {{o.tracking_id}}
+                </p>
+
+
+                <b>
+                    Current position:
+                </b>
+                <p class="card-text">
+                    {{o.current_position}}
+                </p>
+
+
+                <b>
+                    Shipping date:
+                </b>
+                <p class="card-text">
+                    {{o.ship_date}}
+                </p>
+
+
+                <b>
+                    Expected DOD:
+                </b>
+                <p class="card-text">
+                    {{o.expected_date}}
+                </p>
+
+
+                <b>
+                    Shipped from:
+                </b>
+                <p class="card-text">
+                    {{o.shipped_from}}
+                </p>
+
+
+                <b>
+                    Ship to:
+                </b>
+                <p class="card-text">
+                    {{o.shipping_to}}
+                </p>
+
+
+                <b>
+                    Shipping service:
+                </b>
+                <p class="card-text">
+                    {{o.shipping_service}}
+                </p>
+
+
+                <b>
+                    Carrier:
+                </b>
+                <p class="card-text">
+                    {{o.carrier}}
+                </p>
+
+
+                <b>
+                    Shipping cost:
+                </b>
+                <p class="card-text">
+                    ${{o.shipping_cost}}
+                </p>
+
+
+
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+
+        {% else %}
+        <p>
+            <b>
+                No orders to display
+            </b>
+        </p>
+
+        {% endif %}
+
+
+
+
+    </div>
+</div>
+
+</div>
+{% endblock %}

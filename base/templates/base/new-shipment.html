@@ -1,0 +1,148 @@
+{% extends 'base/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+    <div>
+        <div class="page-header">
+            Create a new shipment
+        </div>
+        <h2 class="rm_scrollbar">
+            *Indicates compulsory fields
+        </h2>
+        <form action="" method="post">
+            {% csrf_token %}
+        <div class="page_container">
+            <div class="my_row2">
+                <div class="my_col">
+                    <div class="padded-div">
+                        <h4 class="underline">
+                            Ship From
+                        </h4>
+                        <br>
+                        <div class="form-group">
+                            <select name="ship_from_country" id="" class="form-control">
+                                {% for c in countries %}
+                                <option value="">
+                                    {{c.name}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <br>
+
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" name="ship_from_name" class="form-control" required  placeholder="Full Name or Company Name*">
+                                </div>
+                                <div class="col">
+                                    <input type="text" name="ship_from_contact" class="form-control" placeholder="Contact Name">
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="email" name="ship_from_email" class="form-control" required placeholder="Email*">
+                                </div>
+                                <div class="col">
+                                    <input type="number" name="ship_from_phone" class="form-control" required placeholder="Phone Number*">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="inform" value="" id="inform_from">
+                                <label class="form-check-label" for="inform_from">
+                                    Inform me when there's an update on my package
+                                </label>
+                            </div>
+                            <br>
+
+                            <div class="form-group row">
+                                <div class="col">
+                                    <input type="street_address" name="ship_from_adress" required class="form-control"
+                                        placeholder="Street Address*">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <!--Ship to details-->
+
+                <div class="my_col">
+                    <div class="padded-div">
+                        <h4 class="underline">
+                            Ship To
+                        </h4>
+                        <br>
+                        <div class="form-group">
+                            <select name="ship_to_country" class="form-control">
+                                {% for c in countries %}
+                                <option value="">
+                                    {{c.name}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <br>
+
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" name="ship_to_name" class="form-control" required placeholder="Full Name or Company Name*">
+                                </div>
+                                <div class="col">
+                                    <input type="text" name="ship_to_contact" class="form-control" placeholder="Contact Name">
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="email" name="ship_to_email" class="form-control" required placeholder="Email*">
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control" name="ship_to_phone" required placeholder="Phone Number*">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="inform_to" value="" id="inform_to">
+                                <label class="form-check-label" for="inform_to">
+                                    Send shipping updates to receiver.
+                                </label>
+                            </div>
+                            <br>
+
+                            <div class="form-group row">
+                                <div class="col">
+                                    <input type="street_address" name="ship_to_adress" required class="form-control"
+                                        placeholder="Street Address*">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <button type="submit" class="btn btn-outline-primary btn-block">Proceed to Payment</button>
+            </div>
+        </div>
+    </form>
+    </div>
+    {% endblock %}
+</body>
+
+</html>

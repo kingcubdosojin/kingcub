@@ -1,0 +1,52 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<div class="center sign-up-center" style="height: 100vb; margin-bottom: 20%;">
+    <div style="border-style: groove; padding: 5%;">
+        {% if msg %}
+        <div>
+            <b style="color: red;">
+                {{msg}}
+            </b>
+        </div>
+        {% endif %}
+        <h1 class="sign-up-head rm_scrollbar">
+            Sign up
+        </h1>
+        <p>
+            Already have an account? <a href="{% url 'base:login' %}">Log In</a>
+        </p>
+
+        <form action="{% url 'base:sign-up' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="first" placeholder="First Name" class="form-control" required> <br>
+            <input type="text" name="last" placeholder="Last Name" class="form-control" required>
+            <br>
+            <input type="text" name="username" placeholder="Username" class="form-control" required>
+            <br>
+            <input type="email" name="email" id="email" placeholder="Email" required class="form-control">
+            <br>
+            <input type="number" placeholder="Phone Number (optional)" name="number" required class="form-control">
+
+            <br>
+            <input type="password" placeholder="Enter your password" name="password1" class="form-control" required>
+            <br>
+            <input type="password" placeholder="Confirm password" name="password2" class="form-control" required>
+
+            <input type="checkbox" required> I agree to the {{company_name.name}} Tariff/Terms and Conditions of Service and to the {{company_name.name}} Technology
+            Agreement , which contain important terms about my shipping activity and my use of the {{company_name.name}} Technologies,
+            like limiting {{company_name.name}}’s liability and my agreement on how disputes between {{company_name.name}} and me will be handled.
+            <div style="padding-top: 20px;">
+                <div class="my_col">
+                    <button type="submit" class="track_button btn btn-outline-primary">
+                        Sign up
+                    </button>
+                </div>
+             
+
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

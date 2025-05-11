@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="center" style="height: 100vb;">
+    <div style="border-style: groove; padding: 5%;" >
+        <b style="color: red;">
+            {{msg}}
+        </b>
+        <h1 class="rm_scrollbar">
+            Log In
+        </h1>
+        <p>
+            Don't have a profile? <a href="{% url 'base:sign-up' %}">Sign up</a>
+        </p>
+
+        <form action="{% url 'base:login' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Email or Username" class="form-control" required>
+            <br>
+            <input type="password" name="password" placeholder="Enter your password" class="form-control" required>
+            <small>
+                By Continuing, I agree to the {{company_name.name}} Tariff/Terms and Conditions of Service and the {{company_name.name}} Technology
+                Agreement in effect at the time of shipping.
+            </small>
+            <div class="my_row2" style="padding-top: 20px;">
+<div class="my_col">
+<button type="submit" class="track_button btn btn-outline-primary">
+Continue
+</button>
+</div>
+<div class="my_col">
+Forgot username/password
+</div>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
